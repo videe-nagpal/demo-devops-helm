@@ -29,11 +29,6 @@ podTemplate(label: 'mypod', serviceAccount: 'jenkins-tool', containers: [
       ttyEnabled: true, 
       command: 'cat'
     )
-  ],
-
-  volumes: [
-    hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock'),
-    hostPathVolume(mountPath: '/usr/local/bin/helm', hostPath: '/usr/local/bin/helm')
   ]
   ) {
     node('mypod') {
