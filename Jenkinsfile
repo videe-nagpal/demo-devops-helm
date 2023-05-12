@@ -4,7 +4,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'echo "Building"'
-		sh 'echo "Testing WeebHook"'
+		sh 'echo "Testing WeebHook 1"'
             }
 	}
         stage('Test') {
