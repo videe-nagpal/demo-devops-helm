@@ -33,7 +33,7 @@ podTemplate(label: 'mypod', serviceAccount: 'jenkins-tool', containers: [
 
   volumes: [
     hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock'),
-    hostPathVolume(mountPath: '/usr/local/bin/helm', hostPath: '/usr/local/bin/helm')
+    hostPathVolume(mountPath: '/usr/local/bin/helm', hostPath: '/opt/homebrew/bin/helm')
   ]
   ) {
     node('mypod') {
