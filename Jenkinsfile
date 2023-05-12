@@ -37,7 +37,7 @@ podTemplate(label: 'mypod', serviceAccount: 'jenkins-tool', containers: [
   ) {
     node('mypod') {
 
-        def REPOSITORY_URI = "videe-nagpal/demo-devops-helm"
+        def REPOSITORY_URI = "vnagpal/demo-devops-helm"
 
         stage('Get latest version of code') {
           checkout scm
