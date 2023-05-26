@@ -55,8 +55,7 @@ podTemplate(label: 'mypod', serviceAccount: 'jenkins-tool', containers: [
                 sh 'kubectl get pods -n default'  
             }
             container('helm') { 
-                sh 'helm init --client-only --skip-refresh'
-                sh 'helm repo update'     
+                sh 'helm list'     
             }
         }  
 
