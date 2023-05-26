@@ -92,7 +92,7 @@ podTemplate(label: 'mypod', serviceAccount: 'jenkins-tool', containers: [
             container('helm'){
                 sh 'helm list'
                 sh "helm lint ./${HELM_CHART_DIRECTORY}"
-                sh "helm upgrade --wait --timeout 60 --set image.tag=${BUILD_NUMBER} ${HELM_APP_NAME} ./${HELM_CHART_DIRECTORY}"
+                sh "helm upgrade --wait --timeout=1h --set=image.tag=${BUILD_NUMBER} ${HELM_APP_NAME} ./${HELM_CHART_DIRECTORY}"
                 sh "helm list | grep ${HELM_APP_NAME}"
             }
         }    
