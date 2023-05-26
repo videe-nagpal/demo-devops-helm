@@ -21,7 +21,7 @@ podTemplate(label: 'mypod', serviceAccount: 'jenkins-tool', containers: [
     ),
     containerTemplate(
       name: 'helm', 
-      image: 'alpine/helm:2.14.0', 
+      image: 'alpine/helm:3.12.0', 
       resourceRequestCpu: '100m',
       resourceLimitCpu: '300m',
       resourceRequestMemory: '300Mi',
