@@ -53,8 +53,7 @@ podTemplate(label: 'mypod', serviceAccount: 'jenkins-tool', containers: [
             }
             container('kubectl') { 
                 sh 'kubectl get pods -n default'
-                sh 'kubectl create ns demo'
-                sh 'kubectl label namespace demo istio-injection=enabled'
+                sh 'if (kubectl get ns demo); then echo ns exists; else kubectl create ns demo; kubectl label namespace demo istio-injection=enabled; fi'
             }
             container('helm') { 
                 sh 'helm list'     
