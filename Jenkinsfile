@@ -52,7 +52,9 @@ podTemplate(label: 'mypod', serviceAccount: 'jenkins-tool', containers: [
                 sh 'ls'
             }
             container('kubectl') { 
-                sh 'kubectl get pods -n default'  
+                sh 'kubectl get pods -n default'
+                sh 'kubectl create ns demo'
+                sh 'kubectl label namespace demo istio-injection=enabled'
             }
             container('helm') { 
                 sh 'helm list'     
