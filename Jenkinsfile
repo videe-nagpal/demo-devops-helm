@@ -38,7 +38,7 @@ podTemplate(label: 'mypod', serviceAccount: 'jenkins-tool', containers: [
     node('mypod') {
 
         def REPOSITORY_URI = "vnagpal/demo-devops-helm"
-        def HELM_APP_NAME = "nodejs-app"
+        def HELM_APP_NAME = "nodejs-app-2"
         def HELM_CHART_DIRECTORY = "k8s/nodejs-k8s-cicd"
 
         stage('Get latest version of code') {
