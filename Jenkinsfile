@@ -39,6 +39,7 @@ podTemplate(label: 'mypod', serviceAccount: 'jenkins-tool', containers: [
 
         def REPOSITORY_URI = "vnagpal/demo-devops-helm"
         def HELM_APP_NAME = "nodejs-app-2"
+        def VERSION = "2"
         def HELM_CHART_DIRECTORY = "k8s/nodejs-k8s-cicd"
 
         stage('Get latest version of code') {
@@ -65,7 +66,7 @@ podTemplate(label: 'mypod', serviceAccount: 'jenkins-tool', containers: [
 
               withCredentials([usernamePassword(credentialsId: 'docker-login', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                 sh 'docker login --username="${USERNAME}" --password="${PASSWORD}"'
-                sh "docker build -t ${REPOSITORY_URI}:${BUILD_NUMBER} . --platform linux/x86_64"
+                  sh "docker build -t ${REPOSITORY_URI}:${VERSION}.${BUILD_NUMBER} . --platform linux/x86_64"
                 sh 'docker image ls' 
               } 
                 
@@ -76,7 +77,7 @@ podTemplate(label: 'mypod', serviceAccount: 'jenkins-tool', containers: [
             container('docker') { 
               sh 'whoami'
               sh 'hostname -i' 
-              sh "docker run ${REPOSITORY_URI}:${BUILD_NUMBER} npm run test "                 
+              sh "docker run ${REPOSITORY_URI}:${VERSION}.${BUILD_NUMBER} npm run test "                 
             }
         }
 
@@ -84,7 +85,7 @@ podTemplate(label: 'mypod', serviceAccount: 'jenkins-tool', containers: [
             container('docker'){
               withCredentials([usernamePassword(credentialsId: 'docker-login', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                 sh 'docker image ls'
-                sh "docker push ${REPOSITORY_URI}:${BUILD_NUMBER}"
+                sh "docker push ${REPOSITORY_URI}:${VERSION}.${BUILD_NUMBER}"
               }                 
             }
         }
@@ -93,7 +94,7 @@ podTemplate(label: 'mypod', serviceAccount: 'jenkins-tool', containers: [
             container('helm'){
                 sh 'helm list'
                 sh "helm lint ./${HELM_CHART_DIRECTORY}"
-                sh "helm install --wait --timeout=1h --set=image.tag=${BUILD_NUMBER} ${HELM_APP_NAME} ./${HELM_CHART_DIRECTORY} -n demo"
+                sh "helm install --wait --timeout=1h --set=image.tag=${VERSION}.${BUILD_NUMBER} ${HELM_APP_NAME} ./${HELM_CHART_DIRECTORY} -n demo"
                 sh "helm list | grep ${HELM_APP_NAME}"
             }
         }    
